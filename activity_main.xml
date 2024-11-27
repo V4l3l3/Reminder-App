@@ -28,18 +28,16 @@
     </androidx.cardview.widget.CardView>
 
     <!-- RecyclerView for To-Do List -->
-
-    <!-- Floating Action Button for Adding New Task -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="400dp"
+        android:layout_width="375dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calendarCardView" />
 
+    <!-- Floating Action Button for Adding New Task -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addTaskFab"
         android:layout_width="wrap_content"
