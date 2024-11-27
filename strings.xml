@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ReminderAppProject</string>
+    <string name="add_btn">Add Reminder Button</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="reminder_hint">Enter Reminder</string>
+    <string name="date_hint">Enter Date</string>
+    <string name="time_hint">Enter Time</string>
+</resources>
