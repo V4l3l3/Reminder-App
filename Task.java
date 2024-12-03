@@ -3,14 +3,16 @@ package com.example.reminderappproject;
 public class Task {
     private String taskName;
     private String taskDescription;
-    private String date;
-    private String time;
+    private String taskDate;
+    private String taskTime;
+    private boolean isSelected;
 
-    public Task(String taskName, String taskDescription) {
+    public Task(String taskName, String taskDescription, String taskDate, String taskTime) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
-        this.date = date;
-        this.time = time;
+        this.taskDate = taskDate;
+        this.taskTime = this.taskTime;
+        this.isSelected = false;
     }
 
     public String getTaskName() {
@@ -20,17 +22,23 @@ public class Task {
     public String getTaskDescription() {
         return taskDescription;
     }
-    public String getDate(){
-        return date;
+    public String getTaskDate(){
+        return taskDate;
     }
     public void setDate(){
-        this.date = date;
+        this.taskDate = taskDate;
     }
-    public String getTime(){
-        return time;
+    public String getTaskTime(){
+        return taskTime;
     }
     public void setTime(){
-        this.time = time;
+        this.taskTime = taskTime;
+    }
+    public boolean isSelected() {
+        return isSelected;
+    }
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }
 
