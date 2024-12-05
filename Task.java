@@ -11,7 +11,7 @@ public class Task {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskDate = taskDate;
-        this.taskTime = this.taskTime;
+        this.taskTime = taskTime;
         this.isSelected = false;
     }
 
@@ -25,15 +25,11 @@ public class Task {
     public String getTaskDate(){
         return taskDate;
     }
-    public void setDate(){
-        this.taskDate = taskDate;
-    }
+
     public String getTaskTime(){
         return taskTime;
     }
-    public void setTime(){
-        this.taskTime = taskTime;
-    }
+
     public boolean isSelected() {
         return isSelected;
     }
