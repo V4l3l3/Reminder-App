@@ -40,13 +40,27 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.TaskD
             return insets;
         });
 
-        // FloatingActionButton to add a new task
+        // Inside MainActivity.java:
+
         FloatingActionButton addTaskFab = findViewById(R.id.addTaskFab);
         addTaskFab.setOnClickListener(v -> {
-            // Start AddTaskActivity and expect a result
-            Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_ADD_TASK);
+            // Create a new AddTaskBottomSheet instance
+            AddTaskBottomSheet bottomSheet = new AddTaskBottomSheet();
+
+            // Set the listener for task addition
+            bottomSheet.setTaskAddListener((taskName, taskDescription, taskDate, taskTime) -> {
+                // Create a new Task object with the input
+                Task newTask = new Task(taskName, taskDescription, taskDate, taskTime);
+
+                // Add the task to the list and update the RecyclerView
+                taskList.add(newTask);
+                taskAdapter.notifyDataSetChanged();
+            });
+
+            // Show the bottom sheet
+            bottomSheet.show(getSupportFragmentManager(), "AddTaskBottomSheet");
         });
+
 
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
