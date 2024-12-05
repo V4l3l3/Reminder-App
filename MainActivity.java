@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TaskAdapter.TaskDeleteListener {
 
     private RecyclerView recyclerView;
     private TaskAdapter taskAdapter;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         loadSampleTasks(); // Load initial sample tasks
 
         // Initialize the adapter and set it to RecyclerView
-        taskAdapter = new TaskAdapter(taskList);
+        taskAdapter = new TaskAdapter(taskList, this); // Pass the delete listener
         recyclerView.setAdapter(taskAdapter);
 
         // Set up CalendarView and date selection listener
@@ -110,6 +110,23 @@ public class MainActivity extends AppCompatActivity {
                 tasksByDate.put(date, new ArrayList<>());
             }
             tasksByDate.get(date).add(task);
+        }
+    }
+
+    @Override
+    public void onTaskDeleted(Task task) {
+        // Update the tasksByDate map
+        List<Task> dateTasks = tasksByDate.get(task.getTaskDate());
+        if (dateTasks != null) {
+            dateTasks.remove(task);
+            if (dateTasks.isEmpty()) {
+                tasksByDate.remove(task.getTaskDate());
+            }
+        }
+
+        // Update RecyclerView if the deleted task is part of the currently selected date
+        if (task.getTaskDate().equals(selectedDate)) {
+            taskAdapter.updateTasks(tasksByDate.getOrDefault(selectedDate, new ArrayList<>()));
         }
     }
 }
