@@ -16,14 +16,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     private TaskDeleteListener deleteListener;
 
     // Constructor
-    public TaskAdapter(List<Task> taskList) {
+    public TaskAdapter(List<Task> taskList, TaskDeleteListener deleteListener) {
         this.taskList = taskList;
         this.deleteListener = deleteListener;
     }
 
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // Inflate the item layout (task_item.xml should contain CheckBox, TextViews, etc.)
+        // Inflate the item layout
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.single_item, parent, false);
         return new TaskViewHolder(itemView);
@@ -33,14 +33,24 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(TaskViewHolder holder, int position) {
         Task task = taskList.get(position);
 
-        // Set the task data to the views
+        // Set task data to the views
         holder.taskNameTextView.setText(task.getTaskName());
         holder.taskDescriptionTextView.setText(task.getTaskDescription());
 
-        // Set listener for the checkbox (delete task if checked)
+        // Update checkbox state
+        holder.taskCheckbox.setChecked(task.isSelected());
+
+        // Handle checkbox state change
         holder.taskCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                deleteListener.onTaskDelete(task);
+                // Notify the listener about the task deletion
+                if (deleteListener != null) {
+                    deleteListener.onTaskDeleted(task);
+                }
+                // Remove the task locally and update the RecyclerView
+                int adapterPosition = holder.getAdapterPosition();
+                taskList.remove(adapterPosition);
+                notifyItemRemoved(adapterPosition);
             }
         });
     }
@@ -67,7 +77,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     // Interface to handle task deletion
     public interface TaskDeleteListener {
-        void onTaskDelete(Task task);
+        void onTaskDeleted(Task task);
     }
 
     // Method to update the task list and refresh RecyclerView
