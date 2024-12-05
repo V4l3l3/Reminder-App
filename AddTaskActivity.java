@@ -15,7 +15,7 @@ public class AddTaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_task); // Corrected layout file name
+        setContentView(R.layout.item_task);
 
         // Initialize the views
         taskNameEditText = findViewById(R.id.editTextTitle);
